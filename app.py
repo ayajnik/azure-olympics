@@ -5,7 +5,7 @@ from azure.storage.filedatalake import (
     FileSystemClient
 )
 from azure.identity import DefaultAzureCredential
-from azure.storage.blob import BlockBlobService
+import azure.storage.blob.blockblobservice
 import datetime
 from datetime import datetime
 import pandas as pd
@@ -42,15 +42,8 @@ service_client = DataLakeServiceClient(account_url, credential='qBCN/PQ1cTuD/sgV
 # reading a csv file from pandas which is in a container
 # Instantiate a DataLakeServiceClient using a connection string
 
-accountname= 'tokyoolympicsayush'
-accountkey='qBCN/PQ1cTuD/sgVyNVosaFt+RavmhnVY4kYw/MUNmXlWOluXwlBJJ8cEkLIcmNZ9YkADtMSXULJ+AStZuuJHw=='
-top_level_container_name = 'tokyorawdata1'
 
-blob_service = BlockBlobService(accountname,accountkey)
 
-generator = blob_service.list_blobs(top_level_container_name)
-for blob in generator:
-    print(blob.name)
 
 
 
