@@ -21,8 +21,8 @@ import pandas as pd
  
 ## access key: qBCN/PQ1cTuD/sgVyNVosaFt+RavmhnVY4kYw/MUNmXlWOluXwlBJJ8cEkLIcmNZ9YkADtMSXULJ+AStZuuJHw==
 ## account name: tokyoolympicsayush
-account_url = "https://tokyoolympicsayush.dfs.core.windows.net"
-service_client = DataLakeServiceClient(account_url, credential='qBCN/PQ1cTuD/sgVyNVosaFt+RavmhnVY4kYw/MUNmXlWOluXwlBJJ8cEkLIcmNZ9YkADtMSXULJ+AStZuuJHw==')
+account_url = ""
+service_client = DataLakeServiceClient(account_url, credential='')
 
 # Step 2: Create a container
 
