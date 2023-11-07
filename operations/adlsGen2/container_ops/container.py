@@ -48,7 +48,7 @@ class readFile:
                                         expiry=datetime.utcnow() + timedelta(hours=1))
             
             sas_url = 'https://' + self.account_name+'.blob.core.windows.net/' + self.container_name + '/' + blob_i + '?' + sas_i
-            if sas_url.__contains__('athletes.csv'):
+            if sas_url.__contains__('Athletes.csv'):
                 
                 df = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
                 return df
