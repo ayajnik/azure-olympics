@@ -8,4 +8,4 @@ df_athletes = io.getFile()
 
 print(df_athletes.head())
 
-
+io.dumpFile(df_athletes,'Athletes.csv')

@@ -39,6 +39,9 @@ class readFile:
         df_list = []
         #generate a shared access signiture for files and load them into Python
         for blob_i in blob_list:
+            print('\n')
+            print(blob_i)
+            print('\n')
             #generate a shared access signature for each blob file
             sas_i = generate_blob_sas(account_name = self.account_name,
                                         container_name = self.container_name,
@@ -57,3 +60,50 @@ class readFile:
             
         
         return "No athletes file found"
+
+    def dumpFile(self,df_export,filename):
+        blobbyClient = self.blobClient()
+        containy_client = self.blobConnection()
+        blob_list = []
+        for blob_i in containy_client.list_blobs():
+            blob_list.append(blob_i.name)
+        
+        for blob_i in blob_list:
+            print('\n')
+            print(blob_i)
+            print('\n')
+            #generate a shared access signature for each blob file
+            sas_i = generate_blob_sas(account_name = self.account_name,
+                                        container_name = self.container_name,
+                                        blob_name = blob_i,
+                                        account_key=self.account_key,
+                                        permission=BlobSasPermissions(read=True),
+                                        expiry=datetime.utcnow() + timedelta(hours=1))
+            
+            sas_url = 'https://' + self.account_name+'.blob.core.windows.net/' + self.container_name + '/' + blob_i + '?' + sas_i
+            if sas_url.__contains__('Atheletes.csv'):
+                blob_client = blob_service_client.get_blob_client(container=sas_url,blob=filename)
+                with open(sas_url,'rb') as data:
+                    blob_client.upload_blob(data)
+                print('File Uploaded!')
+        
+        # containy_client = self.blobConnection()
+        # blob_list = []
+        # for blob_i in containy_client.list_blobs():
+        #     blob_list.append(blob_i.name)
+            
+        # df_list = []
+        # #generate a shared access signiture for files and load them into Python
+        # for blob_i in blob_list:
+        #     if blob_i == 'processedData':
+        #         #generate a shared access signature for each blob file
+        #         sas_i = generate_blob_sas(account_name = self.account_name,
+        #                                     container_name = self.container_name,
+        #                                     blob_name = blob_i,
+        #                                     account_key=self.account_key,
+        #                                     permission=BlobSasPermissions(read=True),
+        #                                     expiry=datetime.utcnow() + timedelta(hours=1))
+                
+        #         sas_url = 'https://' + self.account_name+'.blob.core.windows.net/' + self.container_name + '/' + blob_i + '?' + sas_i
+        #         with open(sas_url, 'wb+') as f:
+        #             return df_export.to_csv(f, index=False)

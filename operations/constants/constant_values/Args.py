@@ -5,6 +5,6 @@ sys.path.append('..')
 
 @unique
 class constant(Enum):
-    account_name = 'tokyoolympicsanalysis'
+    account_name = ''
     account_key = ''
-    container_name = ''
+    container_name = 'containerrawdata'
