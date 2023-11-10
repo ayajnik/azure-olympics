@@ -1,5 +1,5 @@
 try:
-    from operations.constants.constant_values.Args import constant
+    from HttpTrigger1_tokyoOlympics.operations.constants.constant_values.Args import constant
     print("Import constant values")
 except ImportError as e:
     print(e)
