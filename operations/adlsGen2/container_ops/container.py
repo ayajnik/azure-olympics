@@ -35,31 +35,61 @@ class readFile:
     def getFile(self):
         containy_client = self.blobConnection()
         blob_list = []
+        df_list = []
+        file_found=False
+
         for blob_i in containy_client.list_blobs():
             blob_list.append(blob_i.name)
-        print(blob_list)
-            
-        df_list = []
+        
+        
+        
+        for rawfiles in blob_list:
+            if rawfiles.__contains__('rawdata/'):
+                if rawfiles.endswith('.csv'):
+                    df_list.append(rawfiles)
+
+        athletes = pd.DataFrame()
+        medals = pd.DataFrame()
+        coaches = pd.DataFrame()
+        teams = pd.DataFrame()
+        ent_gender = pd.DataFrame()
+        
         #generate a shared access signiture for files and load them into Python
-        for blob_i in blob_list:
-            #generate a shared access signature for each blob file
+        for files in df_list:
+            
             sas_i = generate_blob_sas(account_name = self.account_name,
                                         container_name = self.container_name,
-                                        blob_name = blob_i,
+                                        blob_name = files,
                                         account_key=self.account_key,
                                         permission=BlobSasPermissions(read=True),
                                         expiry=datetime.utcnow() + timedelta(hours=1))
             
             
-            sas_url = 'https://' + self.account_name+'.blob.core.windows.net/' + self.container_name + '/' + blob_i + '?' + sas_i
-        
+            sas_url = 'https://' + self.account_name+'.blob.core.windows.net/' + self.container_name + '/' + files + '?' + sas_i
+            print(sas_url)
             if sas_url.__contains__('Athletes.csv'):
-                print("*****")
-                print(sas_url)
-                df = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
-                return df
-            else:
-                return "No files found"
+                print("Reading the file:", sas_url)
+                athletes = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
+                file_found=True
+            if sas_url.__contains__('Medals.csv'):
+                print("Reading the file:", sas_url)
+                medals = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
+                file_found=True
+            if sas_url.__contains__('coaches.csv'):
+                coaches = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
+                file_found=True
+            if sas_url.__contains__('teams.csv'):
+                teams= pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
+                file_found=True
+            if sas_url.__contains__('EntGender_'):
+                ent_gender= pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
+                file_found=True
+        if file_found:    
+            return athletes,medals, coaches, teams,ent_gender
+        else:
+            return "No files found"
+            
+            
 
 
     def dumpFile(self,filename):
