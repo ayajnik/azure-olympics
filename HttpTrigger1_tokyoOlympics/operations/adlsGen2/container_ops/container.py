@@ -115,7 +115,7 @@ class readFile:
 
         
         try:
-            os.remove(os.path.join(os.getcwd()+'/'+filename))
-            print(f"'{os.getcwd()+'/'+filename}' removed successfully.")
+            os.remove('tmp/'+filename)
+            print(f"'{'tmp/'+filename}' removed successfully.")
         except OSError as e:
-            print(f"Error deleting '{os.getcwd()+filename}': {e}")
+            print(f"Error deleting '{'tmp/'+filename}': {e}")

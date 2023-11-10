@@ -3,6 +3,7 @@ from app import final_frame
 import azure.functions as func
 import datetime
 from datetime import datetime
+from operations import io
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -19,8 +20,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     today = datetime.today()
     today_str = today.strftime('%Y-%m-%d')
-
-    final_frame.to_csv('processedOlympicsData_'+today_str+'.csv')
+    
+    final_frame.to_csv('/tmp/processedOlympicsData_'+today_str+'.csv')
 
     
 
