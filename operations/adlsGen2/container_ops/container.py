@@ -95,22 +95,27 @@ class readFile:
     def dumpFile(self,filename):
 
 
+        today = datetime.today()
+        today_str = today.strftime('%Y-%m-%d')
+
         '''
         Export the dataframe as a csv and then dump it in processedData directory.
 
 
         '''
 
+
+
         connection__string = 'DefaultEndpointsProtocol=https;AccountName=' + self.account_name + ';AccountKey=' + self.account_key + ';EndpointSuffix=core.windows.net'
         blob_service_client = BlobServiceClient.from_connection_string(connection__string)
         blob_container = blob_service_client.get_container_client(self.container_name)  ## this is the name of the container
 
-        with open(file=os.path.join(os.getcwd()+'/my_dataframe.csv'), mode="rb") as data:
+        with open(file=os.path.join(os.getcwd()+'/'+filename), mode="rb") as data:
             blob_client = blob_container.upload_blob(name="processedData/"+filename, data=data, overwrite=True)
 
         
         try:
-            os.remove(os.path.join(os.getcwd()+filename))
-            print(f"'{os.getcwd()+filename}' removed successfully.")
+            os.remove(os.path.join(os.getcwd()+'/'+filename))
+            print(f"'{os.getcwd()+'/'+filename}' removed successfully.")
         except OSError as e:
             print(f"Error deleting '{os.getcwd()+filename}': {e}")
