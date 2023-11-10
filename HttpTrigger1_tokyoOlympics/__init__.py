@@ -4,7 +4,7 @@ import azure.functions as func
 import datetime
 from datetime import datetime
 
-sys.apth.append('..')
+sys.path.append('..')
 
 from .operations import io
 #from app import final_frame
