@@ -1,9 +1,15 @@
 import logging
-from app import final_frame
+import sys
 import azure.functions as func
 import datetime
 from datetime import datetime
+
+sys.apth.append('..')
+
+#from app import final_frame
 from operations import io
+import pandas as pd
+from functools import reduce
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -20,6 +26,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     today = datetime.today()
     today_str = today.strftime('%Y-%m-%d')
+
+    df_athletes,df_medal, df_coaches, df_teams,df_ent_gender = io.getFile()
+
+    df_medal.rename(columns={'Team_Country': 'Country'}, inplace=True)
+
+    # List of dataframes to join
+    dfs = [df_athletes, df_medal, df_coaches, df_teams]
+
+    result = reduce(lambda left,right: pd.merge(left,right,on='Country',how='inner'), dfs)
+    final_frame = result.drop_duplicates()
+
     
     final_frame.to_csv('/tmp/processedOlympicsData_'+today_str+'.csv')
 
