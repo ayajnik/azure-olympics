@@ -6,8 +6,8 @@ from datetime import datetime
 
 sys.apth.append('..')
 
+from .operations import io
 #from app import final_frame
-from operations import io
 import pandas as pd
 from functools import reduce
 
