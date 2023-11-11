@@ -8,12 +8,21 @@ from functools import reduce
 import datetime
 from datetime import datetime
 
-df_athletes,df_medal, df_coaches, df_teams,df_ent_gender = io.getFile()
 
-df_medal.rename(columns={'Team_Country': 'Country'}, inplace=True)
+def main():
 
-# List of dataframes to join
-dfs = [df_athletes, df_medal, df_coaches, df_teams]
+    today = datetime.today()
+    today_str = today.strftime('%Y-%m-%d')
 
-result = reduce(lambda left,right: pd.merge(left,right,on='Country',how='inner'), dfs)
-final_frame = result.drop_duplicates()
+    df_athletes,df_medal, df_coaches, df_teams,df_ent_gender = io.getFile()
+
+    df_medal.rename(columns={'Team_Country': 'Country'}, inplace=True)
+
+    # List of dataframes to join
+    dfs = [df_athletes, df_medal, df_coaches, df_teams]
+
+    result = reduce(lambda left,right: pd.merge(left,right,on='Country',how='inner'), dfs)
+    final_frame = result.drop_duplicates()
+    final_frame.to_csv('/tmp/processedOlympicsData_'+today_str+'.csv')
+    final_extract = io.dumpFile('processedOlympicsData_'+today_str+'.csv')
+    return final_extract
