@@ -2,7 +2,8 @@ import sys
 
 sys.path.append('..')
 
-from .operations import io
+from HttpTrigger1_tokyoOlympics.operations import io
+#from .operations import io
 import pandas as pd
 from functools import reduce
 import datetime
