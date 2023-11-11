@@ -1,4 +1,5 @@
 import sys
+import os
 
 sys.path.append('..')
 
@@ -24,6 +25,32 @@ def main():
 
     result = reduce(lambda left,right: pd.merge(left,right,on='Country',how='inner'), dfs)
     final_frame = result.drop_duplicates()
-    final_frame.to_csv('/tmp/processedOlympicsData_'+today_str+'.csv')
+    final_frame.to_csv(os.getcwd()+'/processedOlympicsData_'+today_str+'.csv')
     final_extract = io.dumpFile('processedOlympicsData_'+today_str+'.csv')
     return final_extract
+
+if __name__ == "__main__":
+    print("\n")
+    print("**************************************************************")
+    print("\n")
+    print("Welcome to NeuralWave operations for Azure excellance")
+    print("\n")
+    print("**************************************************************")
+    
+
+    rows = 9    
+    # Here, we are declaring an outer for loop to handle number of rows   
+    for i in range(0, rows):    
+        # Here, we are declaring an inner for loop to print the stars   
+        for j in range(0, i + 1):    
+            print("*", end=' ')    
+        # Here, we are changing the line after each iteration    
+        print(" ")    
+    # Here, we are creating the code for the second pattern    
+    for i in range(rows + 1, 0, -1):    
+        for j in range(0, i - 1):     
+            print("*", end=' ')    
+        print(" ")   
+    main_execution = main()
+    main_execution
+

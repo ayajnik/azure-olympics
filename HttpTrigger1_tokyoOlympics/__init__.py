@@ -13,6 +13,9 @@ import pandas as pd
 from functools import reduce
 from .app import main
 
+if __name__ == "__main__":
+    main_execution = main()
+
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -25,7 +28,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             pass
         else:
             name = req_body.get('name')
-    main_execution = main()
+    
     if name:
         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
     else:

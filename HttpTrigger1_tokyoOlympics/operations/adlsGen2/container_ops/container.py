@@ -66,22 +66,30 @@ class readFile:
             
             
             sas_url = 'https://' + self.account_name+'.blob.core.windows.net/' + self.container_name + '/' + files + '?' + sas_i
-            print(sas_url)
+            
             if sas_url.__contains__('Athletes.csv'):
-                print("Reading the file:", sas_url)
+                print("\n")
+                print("Reading the Athletes file")
                 athletes = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
                 file_found=True
             if sas_url.__contains__('Medals.csv'):
-                print("Reading the file:", sas_url)
+                print("\n")
+                print("Reading the Medals file")
                 medals = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
                 file_found=True
             if sas_url.__contains__('coaches.csv'):
+                print("\n")
+                print("Reading the Coaches file")
                 coaches = pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
                 file_found=True
             if sas_url.__contains__('teams.csv'):
+                print("\n")
+                print("Reading the Teams file")
                 teams= pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
                 file_found=True
             if sas_url.__contains__('EntGender_'):
+                print("\n")
+                print("Reading the Entries Gender file.")
                 ent_gender= pd.read_csv(sas_url,delimiter=',',encoding='latin-1')
                 file_found=True
         if file_found:    
@@ -103,19 +111,42 @@ class readFile:
 
 
         '''
-
-
-
+        print("\n")
+        print("Uploading the file to Blob Storage")
+        print('\n')
+        print("************************************************************")
+        print("**********************************************************")
+        print("********************************************************")
+        print("************************************************")   
+        
         connection__string = 'DefaultEndpointsProtocol=https;AccountName=' + self.account_name + ';AccountKey=' + self.account_key + ';EndpointSuffix=core.windows.net'
         blob_service_client = BlobServiceClient.from_connection_string(connection__string)
         blob_container = blob_service_client.get_container_client(self.container_name)  ## this is the name of the container
 
         with open(file=os.path.join(os.getcwd()+'/'+filename), mode="rb") as data:
             blob_client = blob_container.upload_blob(name="processedData/"+filename, data=data, overwrite=True)
+        print('\n')
+        print("************************************************")
+        print("**************************************************")
+        print("****************************************************")
+        print("******************************************************")
+        print("\n")
+        print('''
+        ********************************************************************************
+         
+                                File Uploaded!
 
+        ********************************************************************************
+        '''
+        )
         
+        
+        print('\n')
+        
+
         try:
-            os.remove('tmp/'+filename)
+            
+            os.remove(os.getcwd()+'/'+filename)
             print(f"'{'tmp/'+filename}' removed successfully.")
         except OSError as e:
             print(f"Error deleting '{'tmp/'+filename}': {e}")
