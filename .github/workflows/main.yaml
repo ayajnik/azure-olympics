@@ -1,0 +1,29 @@
+name: Tokyp Olympics data pre-process
+
+on:
+  workflow_dispatch
+
+env:
+  accountName: ${{secret.ACCNT_NAME}}
+  containerName: ${{secret.CONT_NAME}}
+
+variable:
+  name: "Access_Key"
+  value: ""
+
+jobs:
+  preProcessData:
+    runs-on: ubuntu-latest
+    steps:
+      -name: checkout code
+       uses: actions/checkout@v3
+      
+      -name: setup python
+       uses: actions/setup-python@v4
+
+      -name: Run python scrpit
+       run: | 
+        cd HttpTrigger1_tokyoOlympics
+        pip3 install -r requirements.txt
+        python3 app.py -aacnt $accountName -accnt_key $Account_Key -cont_name $containerName
+             
