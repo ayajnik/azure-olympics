@@ -25,7 +25,7 @@ jobs:
        python-version: '3.11'
 
       -name: Run python scrpit
-       run: | 
+      run: | 
         cd HttpTrigger1_tokyoOlympics
         pip3 install -r requirements.txt
         python3 app.py -aacnt $accountName -accnt_key $Account_Key -cont_name $containerName
