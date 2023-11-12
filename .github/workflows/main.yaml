@@ -3,13 +3,15 @@ name: Tokyp Olympics data pre-process
 on:
   workflow_dispatch
 
+  env_vars: ""
+  env_vars1: ""
+  env_vars2: ""
+
 # env:
 #   accountName: ${{secret.ACCNT_NAME}}
 #   containerName: ${{secret.CONT_NAME}}
 
-variable:
-  name: "Access_Key"
-  value: ""
+ 
 
   name: "Account_name"
   value: ""
@@ -21,10 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v3
+        run: actions/checkout@v3
       
       - name: setup python
-        uses: actions/setup-python@v4
+        run: actions/setup-python@v4
 
         with:
           python-version: '3.11'
@@ -33,5 +35,5 @@ jobs:
         run: | 
           cd HttpTrigger1_tokyoOlympics
           pip3 install -r requirements.txt
-          python3 app.py -aacnt_name $Account_Name -accnt_key $Account_Key -cont_name $Container_Name
+          python3 app.py -aacnt_name $env_vars -accnt_key $env_vars1 -cont_name $env_vars2
               
