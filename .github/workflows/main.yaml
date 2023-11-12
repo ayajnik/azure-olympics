@@ -3,14 +3,19 @@ name: Tokyp Olympics data pre-process
 on:
   workflow_dispatch
 
-env:
-  accountName: ${{secret.ACCNT_NAME}}
-  containerName: ${{secret.CONT_NAME}}
+# env:
+#   accountName: ${{secret.ACCNT_NAME}}
+#   containerName: ${{secret.CONT_NAME}}
 
 variable:
   name: "Access_Key"
   value: ""
 
+  name: "Account_name"
+  value: ""
+
+  name: "Container_Name"
+  value: ""
 jobs:
   preProcessData:
     runs-on: ubuntu-latest
@@ -28,5 +33,5 @@ jobs:
         run: | 
           cd HttpTrigger1_tokyoOlympics
           pip3 install -r requirements.txt
-          python3 app.py -aacnt $accountName -accnt_key $Account_Key -cont_name $containerName
+          python3 app.py -aacnt_name $Account_Name -accnt_key $Account_Key -cont_name $Container_Name
               
