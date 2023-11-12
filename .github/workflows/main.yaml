@@ -15,16 +15,16 @@ jobs:
   preProcessData:
     runs-on: ubuntu-latest
     steps:
-      -name: checkout code
+      #-name: checkout code
       uses: actions/checkout@v3
       
-      -name: setup python
+      #-name: setup python
       uses: actions/setup-python@v4
 
       with:
        python-version: '3.11'
 
-      -name: Run python scrpit
+      #-name: Run python scrpit
       run: | 
         cd HttpTrigger1_tokyoOlympics
         pip3 install -r requirements.txt
