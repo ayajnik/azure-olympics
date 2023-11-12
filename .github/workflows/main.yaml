@@ -1,39 +1,36 @@
-name: Tokyp Olympics data pre-process
+name: Deploy Python app
 
 on:
-  workflow_dispatch
+ workflow_dispatch:
+   inputs:
+     accnt_name:
+       description: 'Account name'
+       required: true
+     accnt_key:
+       description: 'Account key'
+       required: true
+     cont_name:
+       description: 'Container name'
+       required: true
 
-  env_vars: ""
-  env_vars1: ""
-  env_vars2: ""
-
-# env:
-#   accountName: ${{secret.ACCNT_NAME}}
-#   containerName: ${{secret.CONT_NAME}}
-
- 
-
-  name: "Account_name"
-  value: ""
-
-  name: "Container_Name"
-  value: ""
 jobs:
-  preProcessData:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        run: actions/checkout@v3
-      
-      - name: setup python
-        run: actions/setup-python@v4
+ deploy:
+   runs-on: ubuntu-latest
 
-        with:
-          python-version: '3.11'
+   steps:
+   - uses: actions/checkout@v2
 
-      - name: Run python scrpit
-        run: | 
-          cd HttpTrigger1_tokyoOlympics
-          pip3 install -r requirements.txt
-          python3 app.py -aacnt_name $env_vars -accnt_key $env_vars1 -cont_name $env_vars2
-              
+   - name: Set up Python 3.x
+     uses: actions/setup-python@v2
+     with:
+       python-version: '3.x'
+
+   - name: Install dependencies
+     run: |
+       python -m pip install --upgrade pip
+       pip install -r requirements.txt
+
+   - name: Run app.py
+     run: |
+       cd HttpTrigger1_tokyoOlympics
+       python app.py -accnt_name ${{ github.event.inputs.accnt_name }} -accnt_key ${{ github.event.inputs.accnt_key }} -cont_name ${{ github.event.inputs.cont_name }}
