@@ -19,7 +19,7 @@ This repo is a data engineering tutorial implemented using Microsoft Azure cloud
 
 # Implementation
 
-python3 app.py -accnt_name "<Storage account name>" -accnt_key "<Storage account key>" -cont_name "<Container name>"
+python3 app.py -accnt_name "Storage account name" -accnt_key "Storage account key" -cont_name "Container name"
 
 
 
