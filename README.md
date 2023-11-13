@@ -21,6 +21,10 @@ This repo is a data engineering tutorial implemented using Microsoft Azure cloud
 
 python3 app.py -accnt_name "Storage account name" -accnt_key "Storage account key" -cont_name "Container name"
 
+# Miscellaneous
+
+This python project is also saved as an Azure Function App. Hence, the user has the flexibility to deploy this project as serverless function. 
+
 
 
 
